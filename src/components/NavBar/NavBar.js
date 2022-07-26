@@ -1,11 +1,11 @@
-
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import spiderman from './img/spiderman.png'
+import spiderman from '../img/spiderman.png'
+import CartWidget from '../CartWidget';
 
 function NavBar() {
   return (
@@ -46,9 +46,10 @@ function NavBar() {
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-danger">Search</Button>
+            <Button className="me-3" variant="outline-danger">Search</Button>
           </Form>
         </Navbar.Collapse>
+        <CartWidget/>
       </Container>
     </Navbar>
   );
