@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <NavBar></NavBar>
-      <ItemListContainer bienvenida= {<h1 className="bg-danger my-5 py-5">CONTENIDO COMING SOON!!!</h1>}></ItemListContainer>
+      <ItemListContainer></ItemListContainer>
     </div>
   );
 }

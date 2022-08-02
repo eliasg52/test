@@ -3,14 +3,31 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useState } from "react";
 
 
-const ItemCount = ({ stock, initial, aumentar, disminuir}) => {
+const ItemCount = ( {data} ) => {
+
+  const [initial, setInitial] = useState(1)
+
+  const stock = data.stock;
+
+  const aumentar = () => {
+      setInitial(initial + 1)
+      console.log(initial);
+  };
+  const disminuir = () => {
+    setInitial(initial - 1)
+    console.log(initial);
+};
+
+const onAdd = () => {
+  console.log(`Agregaste al carrito ${data.name}`);
+}
 
   return (
     <div className='d-flex justify-content-center'>
       <Card border="danger" style={{ width: '18rem' }}>
-        <Card.Header>COUNTER STRIKE</Card.Header>
         <Card.Body> 
           <Container>
             <Row>
@@ -20,7 +37,7 @@ const ItemCount = ({ stock, initial, aumentar, disminuir}) => {
             </Row>
           </Container>
           <div className="d-grid gap-2">
-            <Button className='mt-4' variant="outline-dark" size="sm">
+            <Button className='mt-4' variant="outline-dark" size="sm" onClick={onAdd} disabled={initial <= 0}>
                 Agregar al carrito
              </Button>
          </div>

@@ -1,24 +1,26 @@
-import { useState } from "react";
-import ItemCount from "./ItemCount/ItemCount"
-const ItemListContainer = (props) => {
+import { useEffect, useState } from "react";
+import getFetch from "./Figuras";
+import ItemList from "./ItemList.js/ItemList";
 
-  const [initial, setInitial] = useState(1)
+const ItemListContainer = () => {
 
-  const stock = 5;
+  const [data, setData] = useState([]);
 
-  const aumentar = () => {
-      setInitial(initial + 1)
-      console.log(initial);
-  };
-  const disminuir = () => {
-    setInitial(initial - 1)
-    console.log(initial);
-};
- 
+  console.log(data);
+
+  useEffect(() => {
+    try {
+      async function getData() {
+        let response = await getFetch;
+        setData(response);
+      }
+      getData();
+    } catch (error) {}
+  }, []);
+
   return (
     <div>
-       {props.bienvenida}
-       <ItemCount stock={stock} initial={initial} aumentar={aumentar} disminuir={disminuir}/>
+      <ItemList data={data}/>
     </div>
   )
 }

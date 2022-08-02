@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import spiderman from '../img/spiderman.png'
+import spiderman from '../../imgNav/spiderman.png'
 import CartWidget from '../CartWidget';
 
 function NavBar() {
