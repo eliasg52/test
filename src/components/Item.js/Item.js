@@ -12,12 +12,6 @@ const Item = ({data}, stock, initial, aumentar, disminuir, onAdd) => {
       <Card.Img variant="top" src={data.imagen} />
       <Card.Body>
         <Card.Title>{data.name}</Card.Title>
-        {/* <Card.Text>
-          {data.group}
-        </Card.Text>
-        <Card.Text>
-          {data.year}
-        </Card.Text> */}
         <Card.Text>
            ${data.price}
         </Card.Text>

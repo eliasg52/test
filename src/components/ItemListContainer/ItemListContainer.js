@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import getFetch from "./Figuras";
-import ItemList from "./ItemList.js/ItemList";
+import getFetch from "../Figuras";
+import ItemList from "../ItemList.js/ItemList";
 
 const ItemListContainer = () => {
 
