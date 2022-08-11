@@ -27,7 +27,7 @@ const onAdd = () => {
 
   return (
     <div className='d-flex justify-content-center'>
-      <Card border="danger" style={{ width: '18rem' }}>
+      <Card border="light" style={{ width: '18rem' }}>
         <Card.Body> 
           <Container>
             <Row>

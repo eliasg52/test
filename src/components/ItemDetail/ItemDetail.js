@@ -1,33 +1,35 @@
 import Card from 'react-bootstrap/Card';
+import ItemCount from '../ItemCount/ItemCount'
 
 
-const ItemDetail = ( {item} ) => {
+const ItemDetail = ( {data}, stock, initial, aumentar, disminuir, onAdd ) => {
 
-  console.log(item)
-  return item.map((item) =>{
+  console.log(data)
+ 
     return (
-        <div key={item.id} className='d-inline-flex'>
+        <div key={data.id} className='d-inline-flex'>
            <Card border="warning" style={{ width: '20rem' }}>
-          <Card.Img variant="top" src={item.imagen} />
+          <Card.Img variant="top" src={data.imagen} />
           <Card.Body>
-            <Card.Title>ID:{item.id} {item.name}</Card.Title>
+            <Card.Title>ID:{data.id} {data.name}</Card.Title>
             <Card.Text>
-              Group: {item.group}
+              Group: {data.group}
             </Card.Text>
             <Card.Text>
-              {item.year}
+              {data.year}
             </Card.Text>
             <Card.Text>
-               Price: ${item.price}
+               Price: ${data.price}
             </Card.Text>
             <Card.Text>
-               Stock: {item.stock}
+               Stock: {data.stock}
             </Card.Text>
+            <ItemCount data={data} stock={stock} initial={initial} aumentar={aumentar} disminuir={disminuir} onAdd={onAdd}/>
           </Card.Body>
         </Card>
         </div>
     )
-  })
+  
 
  
 }

@@ -5,13 +5,15 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import spiderman from '../../imgNav/spiderman.png'
-import CartWidget from '../CartWidget';
+import CartWidget from '../CartWidget/CartWidget';
+import { Link } from 'react-router-dom';
 
 function NavBar() {
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="#">
+      <Navbar.Brand>
+        <Link to="/">
         <img
               src={spiderman}
               width="30"
@@ -19,6 +21,7 @@ function NavBar() {
               className="d-inline-block align-top"
               alt="spiderman"
             />
+        </Link>
             Spiderverse Store</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -27,12 +30,12 @@ function NavBar() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="#action1">Comics</Nav.Link>
-            <Nav.Link href="#action2">Games</Nav.Link>
+            <Nav.Link as={Link} to={'/category/heros'} >Heros</Nav.Link>
+            <Nav.Link as={Link} to={'/category/villains'}>Villains</Nav.Link>
             <NavDropdown title="Figures" id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">Legends</NavDropdown.Item>
               <NavDropdown.Item href="#action4">
-                Bandai
+                Mafex
               </NavDropdown.Item>
               <NavDropdown.Item href="#action5">
                 Hot Toys

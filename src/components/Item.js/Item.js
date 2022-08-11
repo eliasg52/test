@@ -1,21 +1,19 @@
 import Card from 'react-bootstrap/Card';
-import ItemCount from '../ItemCount/ItemCount';
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 
-const Item = ({data}, stock, initial, aumentar, disminuir, onAdd) => {
-
-  console.log(data)
+const Item = ({data}) => {
 
   return (
     <div className='d-inline-flex justify-content-around my-5 mx-5'>
-       <Card border="primary" style={{ width: '18rem' }}>
+       <Card border="primary" style={{ width: '14rem' }}>
       <Card.Img variant="top" src={data.imagen} />
       <Card.Body>
         <Card.Title>{data.name}</Card.Title>
-        <Card.Text>
-           ${data.price}
-        </Card.Text>
-        <ItemCount data={data} stock={stock} initial={initial} aumentar={aumentar} disminuir={disminuir} onAdd={onAdd}/>
+        <Link to={`/details/${data.id}`}>
+        <Button variant="outline-danger">Ver detalle</Button>
+        </Link>
       </Card.Body>
     </Card>
     </div>

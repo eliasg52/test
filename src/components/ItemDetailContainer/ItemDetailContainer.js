@@ -1,26 +1,28 @@
 import { useEffect, useState } from 'react'
-import getItem from '../Details'
+import { useParams } from 'react-router-dom';
+import { getFigurasById } from '../Figuras';
 import ItemDetail from '../ItemDetail/ItemDetail';
 
 const ItemDetailContainer = () => {
 
-  const [item, setItem] = useState([]);
+  const [data, setData] = useState({});
+  const { figuraId } = useParams();
 
-  console.log(item);
 
   useEffect(() => {
-    try {
-      async function getData() {
-        let response = await getItem;
-        setItem(response);
-      }
-      getData();
-    } catch(error) {}
-  }, []);
+    getFigurasById(figuraId)
+        .then(data => {
+          console.log("asd:", data)
+          setData(data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      }, [figuraId])
 
   return (
     <div>
-      <ItemDetail item={item}/>
+      <ItemDetail data={data}/>
     </div>
   )
 }

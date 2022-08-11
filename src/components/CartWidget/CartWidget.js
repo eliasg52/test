@@ -1,4 +1,4 @@
-import carrito from '../imgNav/carrito.webp'
+import carrito from '../../imgNav/carrito.webp'
 
 const CartWidget = () => {
   return (
