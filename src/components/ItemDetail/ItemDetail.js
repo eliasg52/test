@@ -3,8 +3,6 @@ import ItemCount from '../ItemCount/ItemCount'
 
 
 const ItemDetail = ( {data}, stock, initial, aumentar, disminuir, onAdd ) => {
-
-  console.log(data)
  
     return (
         <div key={data.id} className='d-inline-flex'>

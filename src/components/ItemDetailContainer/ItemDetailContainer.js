@@ -12,7 +12,6 @@ const ItemDetailContainer = () => {
   useEffect(() => {
     getFigurasById(figuraId)
         .then(data => {
-          console.log("asd:", data)
           setData(data)
         })
         .catch(error => {

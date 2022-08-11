@@ -1,6 +1,6 @@
 const figuras = [
     {
-        id: 1,
+        id: '1',
         name: "Man-Spider",
         imagen: "../images/Man-Spider.jpeg",
         group: "Spider Man Classics",
@@ -10,7 +10,7 @@ const figuras = [
         price: 95
     },
     {
-        id: 2,
+        id: '2',
         name: "SpiderMan",
         imagen: "../images/SpiderMan.jpeg",
         group: "Spider Man Classics",
@@ -20,7 +20,7 @@ const figuras = [
         price: 55
     },
     {
-        id: 3,
+        id: '3',
         name: "Simbionte",
         imagen: "../images/Simbionte.jpeg",
         group: "Spider Man Classics",
@@ -30,7 +30,7 @@ const figuras = [
         price: 62
     },
     {
-        id: 4,
+        id: '4',
         name: "Venom",
         imagen: "../images/venom-4206.jpeg",
         group: "Spider Man Classics",
@@ -40,7 +40,7 @@ const figuras = [
         price: 51
     },
     {
-        id: 5,
+        id: '5',
         name: "Daredevil",
         imagen: "../images/Daredevil.jpeg",
         group: "Spider Man Classics",
@@ -50,7 +50,7 @@ const figuras = [
         price: 22
     },
     {
-        id: 6,
+        id:'6',
         name: "Rhino",
         imagen: "../images/Rhino.jpeg",
         group: "Spider Man Classics",
@@ -60,7 +60,7 @@ const figuras = [
         price: 36
     },
     {
-        id: 7,
+        id: '7',
         name: "Scarlet-Spider",
         imagen: "../images/Scarlet-Spider.jpeg",
         group: "Spider Man Classics",
@@ -70,7 +70,7 @@ const figuras = [
         price: 147
     },
     {
-        id: 8,
+        id: '8',
         name: "SpiderMan 2099",
         imagen: "../images/SpiderMan 2099.jpeg",
         group: "Spider Man Classics",
@@ -86,7 +86,6 @@ const figuras = [
     if(condition) {
         setTimeout(() => {
             resolve(figuras)
-            console.log(figuras)
         }, 2000);
     }
     else {
@@ -108,7 +107,7 @@ const figuras = [
     return new Promise((resolve, reject) => {
         console.log(figuras)
         setTimeout(() => {
-            resolve(figuras.find(fig => fig.id = id))
+            resolve(figuras.find(fig => fig.id === id))
         }, 1000);
     })
  };
