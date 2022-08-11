@@ -108,7 +108,7 @@ const figuras = [
     return new Promise((resolve, reject) => {
         console.log(figuras)
         setTimeout(() => {
-            resolve(figuras.find(fig => fig.id == id))
+            resolve(figuras.find(fig => fig.id = id))
         }, 1000);
     })
  };
