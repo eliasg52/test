@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import { useState } from "react";
 
 
-const ItemCount = ( {data} ) => {
+const ItemCount = ( {data, onAdd} ) => {
 
   const [initial, setInitial] = useState(1)
 
@@ -14,17 +14,11 @@ const ItemCount = ( {data} ) => {
 
   const aumentar = () => {
       setInitial(initial + 1)
-      console.log(initial);
   };
   const disminuir = () => {
     setInitial(initial - 1)
-    console.log(initial);
-};
-
-const onAdd = () => {
-  console.log(`Agregaste al carrito ${data.name}`);
-}
-
+  };
+  
   return (
     <div className='d-flex justify-content-center'>
       <Card border="light" style={{ width: '18rem' }}>

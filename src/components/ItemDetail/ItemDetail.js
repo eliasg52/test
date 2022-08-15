@@ -1,9 +1,21 @@
+import { useState } from 'react';
+import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import ItemCount from '../ItemCount/ItemCount'
+import { Link } from 'react-router-dom';
 
 
-const ItemDetail = ( {data}, stock, initial, aumentar, disminuir, onAdd ) => {
- 
+const ItemDetail = ( {data}, stock ) => {
+
+  const [toCart, setToCart] = useState(false);
+
+  const itemToCart = () => {
+    setTimeout(() =>{
+      setToCart(true);
+    }, 1000);
+    console.log(`Agregaste ${data.name} al carrito!`)
+  };
+
     return (
         <div key={data.id} className='d-inline-flex'>
            <Card border="warning" style={{ width: '20rem' }}>
@@ -22,7 +34,13 @@ const ItemDetail = ( {data}, stock, initial, aumentar, disminuir, onAdd ) => {
             <Card.Text>
                Stock: {data.stock}
             </Card.Text>
-            <ItemCount data={data} stock={stock} initial={initial} aumentar={aumentar} disminuir={disminuir} onAdd={onAdd}/>
+            {toCart ? (
+              <Link to="/cart">
+                <Button variant="outline-warning">Finalizar Compra!</Button>
+              </Link>
+            ) : (
+              <ItemCount data={data} stock={stock} onAdd={itemToCart}/>
+            )}
           </Card.Body>
         </Card>
         </div>
