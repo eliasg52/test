@@ -3,21 +3,44 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from '../../context/CartContext';
 
 
-const ItemCount = ( {data, onAdd} ) => {
+const ItemCount = ( {stock, onAddToCart, figuraData} ) => {
 
   const [initial, setInitial] = useState(1)
+  const {addToCart} = useContext(CartContext);
+  const [noStock, SetNoStock] = useState(stock);
+  const figuraDataCount = {
+    ...figuraData,
+    initial
+  }
 
-  const stock = data.stock;
+  useEffect(() => {
+    SetNoStock(stock)
+  }, [stock])
+
 
   const aumentar = () => {
-      setInitial(initial + 1)
+    if(noStock > 1) {
+      setInitial(initial + 1);
+      SetNoStock(noStock - 1);
+    }
   };
   const disminuir = () => {
-    setInitial(initial - 1)
+    if(initial >= 1) {
+      setInitial(initial - 1);
+      SetNoStock(noStock + 1);
+    }
   };
+  const onAdd = () => {
+    if(initial >= 1) {
+      SetNoStock(noStock - initial);
+      SetNoStock(noStock);
+      onAddToCart();
+    }
+  }
   
   return (
     <div className='d-flex justify-content-center'>
@@ -31,7 +54,10 @@ const ItemCount = ( {data, onAdd} ) => {
             </Row>
           </Container>
           <div className="d-grid gap-2">
-            <Button className='mt-4' variant="outline-dark" size="sm" onClick={onAdd} disabled={initial <= 0}>
+            <Button className='mt-4' variant="outline-dark" size="sm" disabled={initial <= 0}  onClick={()=>{
+              onAdd();
+              addToCart({...figuraDataCount})
+            }}>
                 Agregar al carrito
              </Button>
          </div>
@@ -40,5 +66,4 @@ const ItemCount = ( {data, onAdd} ) => {
     </div>
   )
 }
-
 export default ItemCount

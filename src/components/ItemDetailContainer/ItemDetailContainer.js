@@ -8,7 +8,6 @@ const ItemDetailContainer = () => {
   const [data, setData] = useState({});
   const { figuraId } = useParams();
 
-
   useEffect(() => {
     getFigurasById(figuraId)
         .then(data => {
@@ -21,7 +20,7 @@ const ItemDetailContainer = () => {
 
   return (
     <div>
-      <ItemDetail data={data}/>
+      <ItemDetail {...data}/>
     </div>
   )
 }

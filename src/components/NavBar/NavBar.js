@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import spiderman from '../../imgNav/spiderman.png'
-import CartWidget from '../CartWidget/CartWidget';
+import CartWidget from '../Cart/CartWidget';
 import { Link } from 'react-router-dom';
 
 function NavBar() {

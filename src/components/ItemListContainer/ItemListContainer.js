@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import getFetch, { getFigurasByCategory } from "../Figuras";
-import ItemList from "../ItemList.js/ItemList";
+import ItemList from "../ItemList/ItemList";
 
 const ItemListContainer = () => {
 
