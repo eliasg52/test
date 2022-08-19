@@ -7,23 +7,26 @@ import { Link } from 'react-router-dom';
 
 const ItemDetail = ( {id, name, imagen, group, year, price, stock} ) => {
   
-  const figuraData = {id, name, imagen, price, stock}
+  const figuraData = {id, name, imagen, price, year, group, stock}
   const [toCart, setToCart] = useState(false);
 
   const onAddFigures = () => {
     setTimeout(() =>{
       setToCart(true);
-    }, 1000);
+    }, 500);
     console.log(`Agregaste ${name} al carrito!`)
   };
 
 
     return (
         <div key={id} className='d-inline-flex'>
-           <Card border="warning" style={{ width: '20rem' }}>
-          <Card.Img variant="top" src={imagen} />
+           <Card border="warning" style={{ width: '15rem' }}>
           <Card.Body>
-            <Card.Title>ID:{id} {name}</Card.Title>
+          <div>
+          <Card.Img variant="top" src={imagen} />
+          </div>
+           <div>
+           <Card.Title>ID:{id} {name}</Card.Title>
             <Card.Text>
               Group: {group}
             </Card.Text>
@@ -36,6 +39,7 @@ const ItemDetail = ( {id, name, imagen, group, year, price, stock} ) => {
             <Card.Text>
                Stock: {stock}
             </Card.Text>
+           </div>
             {toCart ? (
               <div>
                 <Link to="/">

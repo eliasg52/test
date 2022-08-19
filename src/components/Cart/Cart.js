@@ -1,10 +1,8 @@
 import React, { useContext } from 'react'
 import { CartContext } from '../../context/CartContext'
-import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import { Button } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import './Cart.css';
 
 const Cart = () => {
 
@@ -12,41 +10,39 @@ const Cart = () => {
 
   return (
     <div>
-        {cart === "" ? (
+        {cart == "" ? (
              <div>
              <p>¡El carrito está vacío!</p>
            </div>
         ) : ( cart.map((item) => (
-            <Row key={item.id} xs={1} md={2} className="g-4">
-            <Col>
-              <Card className='bg-light'>
-                <Card.Img src={item.imagen} />
-                <Card.Body>
-                  <Card.Title>{item.name}</Card.Title>
-                  <Card.Subtitle>{item.group}</Card.Subtitle>
-                  <Card.Subtitle>{item.year}</Card.Subtitle>
-                  <Card.Text>{`CANTIDAD ${item.initial}`}</Card.Text>
-                  <Card.Text>{`PRICE $: ${item.price}`}</Card.Text>
-                  <Card.Text>{`SUBTOTAL: $ ${item.initial * item.price}`}</Card.Text>
-                  <Button className='bg-danger' onClick={() => removeFromCart(item.id)}>Eliminar del Carrito</Button>
-                </Card.Body>
-              </Card>
-            </Col>
-        </Row>
+         <div key={item.id} className='d-inline-flex'>
+           <Card style={{ width: '14rem' }}>
+          <Card.Img variant="top" src={item.imagen} />
+          </Card>
+         <Card style={{ width: '14rem' }}>
+         <Card.Body>
+           <Card.Title>{item.name}</Card.Title>
+           <Card.Title>{`QUANTITY: ${item.initial}`}</Card.Title>
+           <Card.Title>{`PRICE: ${item.price}`}</Card.Title>
+           <Card.Title>{`SUBTOTAL: $${item.initial * item.price}`}</Card.Title>
+           <Button onClick={() => removeFromCart(item.id)} variant="danger">Eliminar del Carrito</Button>
+         </Card.Body>
+       </Card>
+         </div>
         ))
         )}
-         {cart === "" ? (
+         {cart == "" ? (
         <div>
           <div className="total"></div>
           <div>
-            <Button as={Link} to="/" className="continue">
+            <Button className='m-2' as={Link} to="/">
               Go Shopping!
             </Button>
             <div>
-              <Button onClick={removeAll} disabled>
+              <Button className='m-2' onClick={removeAll} disabled>
                 vaciar carrito
               </Button>
-              <Button disabled>
+              <Button className='m-2' disabled>
                 FINALIZAR COMPRA
               </Button>
             </div>
@@ -54,21 +50,17 @@ const Cart = () => {
         </div>
       ) : (
         <div>
-        <div>TOTAL: ${totalPrice}</div>
-        <div>
-          <Button className='bg-info mt-4' as={Link} to="/">
+          <Button className='bg-info m-2' as={Link} to="/">
             Continuar comprando
           </Button>
-          <div>
-            <Button className='bg-danger mt-4' onClick={removeAll}>
+            <Button className='bg-danger m-2' onClick={removeAll}>
               vaciar carrito
             </Button>
-            <Button className='bg-success mt-4'>
+            <Button className='bg-success m-2'>
               FINALIZAR COMPRA
             </Button>
+            <div className='m-2'>TOTAL: ${totalPrice}</div>
           </div>
-        </div>
-      </div>
       )}
     </div>
   )

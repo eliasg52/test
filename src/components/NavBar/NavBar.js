@@ -7,8 +7,13 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import spiderman from '../../imgNav/spiderman.png'
 import CartWidget from '../Cart/CartWidget';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CartContext } from '../../context/CartContext';
 
 function NavBar() {
+
+  const { cart } = useContext(CartContext);
+
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -52,7 +57,7 @@ function NavBar() {
             <Button className="me-3" variant="outline-danger">Search</Button>
           </Form>
         </Navbar.Collapse>
-        <CartWidget/>
+        {cart == "" ? (true) : (<CartWidget/>)}
       </Container>
     </Navbar>
   );
