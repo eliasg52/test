@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 
 
-const Item = ({data}) => {
+const Item = (data) => {
 
   return (
     <div className='d-inline-flex justify-content-around my-5 mx-5'>

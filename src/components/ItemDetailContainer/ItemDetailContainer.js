@@ -1,22 +1,20 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { getFigurasById } from '../Figuras';
 import ItemDetail from '../ItemDetail/ItemDetail';
+import { DB } from '../../api/FigurasFirebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 const ItemDetailContainer = () => {
 
-  const [data, setData] = useState({});
+  const [data, setData] = useState();
   const { figuraId } = useParams();
 
   useEffect(() => {
-    getFigurasById(figuraId)
-        .then(data => {
-          setData(data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      }, [figuraId])
+    const dbDoc = doc(DB, 'products', figuraId);
+    getDoc(dbDoc)
+    .then(res => setData({id:res.id, ...res.data()}))
+    .catch(err => console.log(err))
+  }, [figuraId]);
 
   return (
     <div>

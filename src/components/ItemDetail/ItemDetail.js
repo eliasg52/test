@@ -20,13 +20,13 @@ const ItemDetail = ( {id, name, imagen, group, year, price, stock} ) => {
 
     return (
         <div key={id} className='d-inline-flex'>
-           <Card border="warning" style={{ width: '15rem' }}>
+           <Card border="warning" style={{ width: '16rem' }}>
           <Card.Body>
           <div>
           <Card.Img variant="top" src={imagen} />
           </div>
            <div>
-           <Card.Title>ID:{id} {name}</Card.Title>
+           <Card.Title>{name}</Card.Title>
             <Card.Text>
               Group: {group}
             </Card.Text>

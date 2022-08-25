@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import getFetch, { getFigurasByCategory } from "../Figuras";
 import ItemList from "../ItemList/ItemList";
+import { DB } from "../../api/FigurasFirebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 const ItemListContainer = () => {
 
@@ -10,26 +11,27 @@ const ItemListContainer = () => {
 
 
   useEffect(() => {
-  
-  if(!categoryId) {
-    try {
-      async function getData() {
-        let response = await getFetch;
-        setData(response);
-      }
-      getData();
-    } catch (error) {}
-  } else {
-    getFigurasByCategory(categoryId).then(data => {
-      setData(data)
-    })
-  }
-   
-  }, [categoryId]);
+
+    const colRef = collection(DB, 'products');
+    if(categoryId){
+      const  colFilterRef = query(colRef, 
+        where('category', '==', categoryId))
+      getDocs(colRef)
+      .then(res=> setData(res.docs.map(item => ({id:item.id, ...item.data()})))
+      )
+      getDocs(colFilterRef)
+      .then(res=> setData(res.docs.map(item => ({id:item.id, ...item.data()})))
+      )}else{
+        getDocs(colRef)
+        .then(res=> setData(res.docs.map(item => ({id:item.id, ...item.data()})))
+        )
+      };  
+    
+  },[categoryId]);
 
   return (
     <div>
-      <ItemList data={data}/>
+      <ItemList data={data} category={categoryId}/>
     </div>
   )
 }
