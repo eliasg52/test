@@ -3,10 +3,52 @@ import { CartContext } from '../../context/CartContext'
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Cart.css';
+import { increment, serverTimestamp, updateDoc, doc, collection, setDoc } from 'firebase/firestore';
+import { DB } from '../../api/FigurasFirebase';
+
 
 const Cart = () => {
 
     const { cart, removeFromCart, removeAll, totalPrice } = useContext(CartContext);
+    const createOrder = () => {
+      const itemsForDB = cart.map(item => ({
+        id: item.id,
+        title: item.name,
+        price: item.price
+      }));
+
+      cart.forEach(async (item) => {
+        const itemRef = doc(DB, 'products', item.id);
+        await updateDoc(itemRef, {
+          stock: increment(-item.initial)
+        });
+      });
+
+      let order = {
+        buyer: {
+          name: "Kevin Feige",
+          email: "Kevin@Marvel.com",
+          phone: "+501 456 798"
+        },
+        total: totalPrice,
+        items: itemsForDB,
+        date: serverTimestamp()
+      };
+      console.log(order);
+
+      const createOrderInFirestore = async() => {
+        const newOrderRef = doc(collection(DB, 'orders'));
+        await setDoc(newOrderRef, order);
+        return newOrderRef;
+      }
+
+      createOrderInFirestore()
+      .then(result => {
+        alert('Haz finalizado la compra con exito!')
+        removeAll(cart)
+      })
+      .catch(err => console.log(err));
+    }
 
   return (
     <div>
@@ -56,7 +98,7 @@ const Cart = () => {
             <Button className='bg-danger m-2' onClick={removeAll}>
               vaciar carrito
             </Button>
-            <Button className='bg-success m-2'>
+            <Button className='bg-success m-2' onClick={createOrder}>
               FINALIZAR COMPRA
             </Button>
             <div className='m-2'>TOTAL: ${totalPrice}</div>
