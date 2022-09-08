@@ -35,27 +35,18 @@ function NavBar() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link as={Link} to={'/category/heros'} >Heros</Nav.Link>
-            <Nav.Link as={Link} to={'/category/villains'}>Villains</Nav.Link>
             <NavDropdown title="Figures" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Legends</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Mafex
+              <NavDropdown.Item as={Link} to={'/category/heros'}>
+                Heros
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action5">
-                Hot Toys
+              <NavDropdown.Item as={Link} to={'/category/villains'}>
+                Villains
+              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={'/category/antiheros'}>
+                Anti-Heros
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button className="me-3" variant="outline-danger">Search</Button>
-          </Form>
         </Navbar.Collapse>
         {cart == "" ? (true) : (<CartWidget/>)}
       </Container>

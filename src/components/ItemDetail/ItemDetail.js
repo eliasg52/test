@@ -5,7 +5,7 @@ import ItemCount from '../ItemCount/ItemCount'
 import { Link } from 'react-router-dom';
 
 
-const ItemDetail = ( {id, name, imagen, group, year, price, stock} ) => {
+const ItemDetail = ( {id, name, imagen, group, year, price, stock, info} ) => {
   
   const figuraData = {id, name, imagen, price, year, group, stock}
   const [toCart, setToCart] = useState(false);
@@ -19,26 +19,26 @@ const ItemDetail = ( {id, name, imagen, group, year, price, stock} ) => {
 
 
     return (
-        <div key={id} className='d-inline-flex'>
+        <div key={id} className='d-inline-flex mt-4'>
+          <Card border="warning" style={{ width: '16rem' }}>
+          <Card.Img variant="top" src={imagen} />
+          </Card>
            <Card border="warning" style={{ width: '16rem' }}>
           <Card.Body>
-          <div>
-          <Card.Img variant="top" src={imagen} />
-          </div>
            <div>
            <Card.Title>{name}</Card.Title>
-            <Card.Text>
+            <Card.Title>
               Group: {group}
-            </Card.Text>
-            <Card.Text>
+            </Card.Title>
+            <Card.Title>
               {year}
-            </Card.Text>
-            <Card.Text>
+            </Card.Title>
+            <Card.Title>
                Price: ${price}
-            </Card.Text>
-            <Card.Text>
+            </Card.Title>
+            <Card.Title>
                Stock: {stock}
-            </Card.Text>
+            </Card.Title>
            </div>
             {toCart ? (
               <div>
@@ -46,12 +46,15 @@ const ItemDetail = ( {id, name, imagen, group, year, price, stock} ) => {
                 <Button variant="outline-success">Continuar Comprando</Button>
               </Link>
               <Link to="/cart">
-                <Button className='mt-2' variant="outline-warning">Finalizar Compra!</Button>
+                <Button className='m-4' variant="outline-warning">Finalizar Compra!</Button>
               </Link>
               </div>
             ) : (
               <ItemCount figuraData={figuraData} stock={stock} onAddToCart={onAddFigures}/>
             )}
+            <Card.Subtitle>
+              {info}
+            </Card.Subtitle>
           </Card.Body>
         </Card>
         </div>

@@ -1,110 +1,96 @@
 import React, { useContext } from 'react'
 import { CartContext } from '../../context/CartContext'
-import { Button, Card } from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'react-bootstrap';
+import { FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './Cart.css';
-import { increment, serverTimestamp, updateDoc, doc, collection, setDoc } from 'firebase/firestore';
-import { DB } from '../../api/FigurasFirebase';
-
 
 const Cart = () => {
 
     const { cart, removeFromCart, removeAll, totalPrice } = useContext(CartContext);
-    const createOrder = () => {
-      const itemsForDB = cart.map(item => ({
-        id: item.id,
-        title: item.name,
-        price: item.price
-      }));
 
-      cart.forEach(async (item) => {
-        const itemRef = doc(DB, 'products', item.id);
-        await updateDoc(itemRef, {
-          stock: increment(-item.initial)
-        });
-      });
-
-      let order = {
-        buyer: {
-          name: "Kevin Feige",
-          email: "Kevin@Marvel.com",
-          phone: "+501 456 798"
-        },
-        total: totalPrice,
-        items: itemsForDB,
-        date: serverTimestamp()
-      };
-      console.log(order);
-
-      const createOrderInFirestore = async() => {
-        const newOrderRef = doc(collection(DB, 'orders'));
-        await setDoc(newOrderRef, order);
-        return newOrderRef;
-      }
-
-      createOrderInFirestore()
-      .then(result => {
-        alert('Haz finalizado la compra con exito!')
-        removeAll(cart)
-      })
-      .catch(err => console.log(err));
-    }
 
   return (
-    <div>
+    <div className="cartContainer">
+    <div className="cartTittle">
+      <h2>Your Cart!</h2>
+      <hr />
+    </div>
+    <hr />
+    <Container className="cartGrid">
+      <Row className="datosGrid">
+        <Col m={2}>IMG</Col>
+        <Col m={3}>NAME</Col>
+        <Col m={2} className="datosCant">
+          QUANTITY
+        </Col>
+        <Col m={2}>PRICE</Col>
+        <Col m={2}>TOTAL PRICE</Col>
+        <Col m={1}></Col>
+      </Row>
+      <Container className="containerProds">
         {cart == "" ? (
-             <div>
-             <p>¡El carrito está vacío!</p>
-           </div>
-        ) : ( cart.map((item) => (
-         <div key={item.id} className='d-inline-flex'>
-           <Card style={{ width: '14rem' }}>
-          <Card.Img variant="top" src={item.imagen} />
-          </Card>
-         <Card style={{ width: '14rem' }}>
-         <Card.Body>
-           <Card.Title>{item.name}</Card.Title>
-           <Card.Title>{`QUANTITY: ${item.initial}`}</Card.Title>
-           <Card.Title>{`PRICE: ${item.price}`}</Card.Title>
-           <Card.Title>{`SUBTOTAL: $${item.initial * item.price}`}</Card.Title>
-           <Button onClick={() => removeFromCart(item.id)} variant="danger">Eliminar del Carrito</Button>
-         </Card.Body>
-       </Card>
-         </div>
-        ))
-        )}
-         {cart == "" ? (
-        <div>
-          <div className="total"></div>
-          <div>
-            <Button className='m-2' as={Link} to="/">
-              Go Shopping!
+          <div className="vacio">
+            <p>EMPTY!!!</p>
+            <Button as={Link} to="/" className="continue">
+              Go shopping!!
             </Button>
-            <div>
-              <Button className='m-2' onClick={removeAll} disabled>
-                vaciar carrito
-              </Button>
-              <Button className='m-2' disabled>
-                FINALIZAR COMPRA
-              </Button>
-            </div>
+          </div>
+        ) : (
+          <>
+            {cart.map((item) => (
+              <Row key={item.id} className="prodGrid">
+                <Col m={2} className="itemImg">
+                  <Link to={`/detail/${item.id}`}>
+                    <img src={item.imagen} width="100px" alt={item.name}></img>
+                  </Link>
+                </Col>
+                <Col m={3} className="itemName">
+                  {item.name}
+                </Col>
+                <Col m={2} className="itemCont">
+                  {item.initial}
+                </Col>
+                <Col m={2} className="itemPrice">{`$ ${item.price}`}</Col>
+                <Col m={2} className="subTotal">{`$ ${
+                  item.initial * item.price
+                }`}</Col>
+                <Col m={1} className="itemClear">
+                  <Button
+                    className="clearProd"
+                    onClick={() => removeFromCart(item.id)}
+                  >
+                    <FaTrash />
+                  </Button>
+                </Col>
+              </Row>
+            ))}
+          </>
+        )}
+      </Container>
+    </Container>
+    <hr />
+    {cart == "" ? (
+      <></>
+    ) : (
+      <div className="cartBottom">
+        <div className="total">TOTAL: ${totalPrice}</div>
+        <div className="cartButtons">
+          <Button as={Link} to="/" className="continue">
+            Continue Shopping
+          </Button>
+          <div className="bottomButtons">
+            <Button className="clearCart" onClick={removeAll}>
+              Clear Cart
+            </Button>
+            <Button as={Link} to="/checkout" className="finalizar ">
+              GO PAY!
+            </Button>
           </div>
         </div>
-      ) : (
-        <div>
-          <Button className='bg-info m-2' as={Link} to="/">
-            Continuar comprando
-          </Button>
-            <Button className='bg-danger m-2' onClick={removeAll}>
-              vaciar carrito
-            </Button>
-            <Button className='bg-success m-2' onClick={createOrder}>
-              FINALIZAR COMPRA
-            </Button>
-            <div className='m-2'>TOTAL: ${totalPrice}</div>
-          </div>
-      )}
-    </div>
+      </div>
+    )}
+  </div>
   )
 }
 
