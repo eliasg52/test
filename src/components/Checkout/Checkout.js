@@ -1,33 +1,38 @@
-import React, { useContext, useEffect, useState } from "react";
-import { collection, doc, increment, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
-import { DB } from "../../api/FigurasFirebase";
-import { CartContext } from "../../context/CartContext";
-import { PulseLoader } from "react-spinners";
-import { FiCheckSquare } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import { GiHandTruck } from "react-icons/gi";
-import { FaTruck } from "react-icons/fa";
-import logo from "../../imgNav/spiderman.png";
-import Modal from "react-bootstrap/Modal";
-import "./checkout.css";
+import React, { useContext, useEffect, useState } from 'react';
+import {
+  collection,
+  doc,
+  increment,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
+import { DB } from '../../api/FigurasFirebase';
+import { CartContext } from '../../context/CartContext';
+import { PulseLoader } from 'react-spinners';
+import { FiCheckSquare } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+import { GiHandTruck } from 'react-icons/gi';
+import { FaTruck } from 'react-icons/fa';
+import logo from '../../imgNav/spiderman.png';
+import Modal from 'react-bootstrap/Modal';
+import './checkout.css';
 
 function Checkout() {
-
   const { cart, removeAll, totalPrice } = useContext(CartContext);
   const [shipp, setShipp] = useState(0);
   const [motoActive, setMotoActive] = useState(false);
   const [correoActive, setCorreoActive] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [buyerName, setBuyerName] = useState("");
-  const [buyerPhone, setBuyerPhone] = useState("");
-  const [buyerEmail, setBuyerEmail] = useState("");
-  const [email1, setEmail1]=useState('')
-  const [email2, setEmail2]=useState('')
+  const [buyerName, setBuyerName] = useState('');
+  const [buyerPhone, setBuyerPhone] = useState('');
+  const [buyerEmail, setBuyerEmail] = useState('');
+  const [email1, setEmail1] = useState('');
+  const [email2, setEmail2] = useState('');
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
-  const [Id, setId] = useState("");
+  const [Id, setId] = useState('');
   const handleClose = () => setShow(false);
-
 
   function selectMoto() {
     setShipp(950);
@@ -40,17 +45,18 @@ function Checkout() {
     setMotoActive(false);
   }
 
-
-  useEffect(()=>{
-      setBuyerEmail(email1) 
-  },[email1])
-
+  useEffect(() => {
+    setBuyerEmail(email1);
+  }, [email1]);
 
   useEffect(() => {
-    if ((buyerName !== "" , buyerPhone !== "" && email1===email2 && shipp > 0 && buyerEmail!=='')) {
+    if (
+      (buyerName !== '',
+      buyerPhone !== '' && email1 === email2 && shipp > 0 && buyerEmail !== '')
+    ) {
       setDisabled(false);
-    }else{
-      setDisabled(true)
+    } else {
+      setDisabled(true);
     }
   }, [shipp, buyerName, buyerPhone, email1, email2, buyerEmail]);
 
@@ -75,7 +81,7 @@ function Checkout() {
 
   const createOrder = () => {
     const orderInFirestore = async () => {
-      const newOrderRef = doc(collection(DB, "orders"));
+      const newOrderRef = doc(collection(DB, 'orders'));
       await setDoc(newOrderRef, order);
       return newOrderRef;
     };
@@ -84,7 +90,7 @@ function Checkout() {
       .then((res) => {
         setLoading(false);
         cart.forEach(async (item) => {
-          const itemRef = doc(DB, "products", item.id);
+          const itemRef = doc(DB, 'products', item.id);
           await updateDoc(itemRef, {
             stock: increment(-item.initial),
           });
@@ -105,7 +111,6 @@ function Checkout() {
     setShow(false);
   };
 
-  
   return (
     <div className="checkout">
       <div className="checkoutContainer">
@@ -132,7 +137,7 @@ function Checkout() {
             <div className="envios">
               <h2>Shipping method</h2>
               <div
-                className={motoActive ? "envio active" : "envio"}
+                className={motoActive ? 'envio active' : 'envio'}
                 id="moto"
                 onClick={selectMoto}
               >
@@ -140,7 +145,7 @@ function Checkout() {
                   <GiHandTruck />
                   <div>
                     <h4>
-                    private messaging <span>(only in town)</span>
+                      private messaging <span>(only in town)</span>
                     </h4>
                     <p>arrive today</p>
                   </div>
@@ -150,7 +155,7 @@ function Checkout() {
                 </div>
               </div>
               <div
-                className={correoActive ? "envio active" : "envio"}
+                className={correoActive ? 'envio active' : 'envio'}
                 id="correo"
                 onClick={selectCorreo}
               >
@@ -175,20 +180,20 @@ function Checkout() {
                 type="name"
                 name="name"
                 onChange={(event) => setBuyerName(event.target.value)}
-              />              
+              />
               <label>Email</label>
               <input
                 type="email"
                 name="email"
                 onChange={(event) => setEmail1(event.target.value)}
-                style={{border: email1!=email2? '1px solid red':''}}
-                />
+                style={{ border: email1 !== email2 ? '1px solid red' : '' }}
+              />
               <label>Email</label>
               <input
                 type="email"
                 name="email"
                 onChange={(event) => setEmail2(event.target.value)}
-                style={{border: email1!=email2? '1px solid red':''}}
+                style={{ border: email1 !== email2 ? '1px solid red' : '' }}
               />
               <label>Telephone</label>
               <input
@@ -227,7 +232,12 @@ function Checkout() {
                 <div className="direccion">
                   <div>
                     <label>Street</label>
-                    <input type="text" name="calle" value="Avellaneda" readOnly />
+                    <input
+                      type="text"
+                      name="calle"
+                      value="Avellaneda"
+                      readOnly
+                    />
                   </div>
                   <div className="altura">
                     <label>height</label>
@@ -275,7 +285,7 @@ function Checkout() {
                 <h4 className="totalCost">${shipp + totalPrice}</h4>
               </div>
               {disabled ? (
-                <button style={{ pointerEvents: "none", opacity: ".6" }}>
+                <button style={{ pointerEvents: 'none', opacity: '.6' }}>
                   Missing data
                 </button>
               ) : (
@@ -304,7 +314,7 @@ function Checkout() {
         <Modal.Body>
           {loading ? (
             <>
-              <PulseLoader color={"rgb(157, 19, 789)"} size={30} />
+              <PulseLoader color={'rgb(157, 19, 789)'} size={30} />
             </>
           ) : (
             <div className="checkOrder">

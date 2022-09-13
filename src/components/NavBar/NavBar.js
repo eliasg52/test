@@ -2,30 +2,30 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import spiderman from '../../imgNav/spiderman.png'
+import spiderman from '../../imgNav/spiderman.png';
 import CartWidget from '../Cart/CartWidget';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { CartContext } from '../../context/CartContext';
 
 function NavBar() {
-
   const { cart } = useContext(CartContext);
 
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
-      <Navbar.Brand>
-        <Link to="/">
-        <img
+        <Navbar.Brand>
+          <Link to="/">
+            <img
               src={spiderman}
               width="30"
               height="30"
               className="d-inline-block align-top"
               alt="spiderman"
             />
-        </Link>
-            Spiderverse Store</Navbar.Brand>
+          </Link>
+          Spiderverse Store
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -46,7 +46,7 @@ function NavBar() {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        {cart == "" ? (true) : (<CartWidget/>)}
+        {cart === '' ? true : <CartWidget />}
       </Container>
     </Navbar>
   );
